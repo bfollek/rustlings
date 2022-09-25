@@ -306,6 +306,12 @@ There's a few ways to fix this, try them all if you want:
    first `println!`"""
 
 [[exercises]]
+name = "move_semantics2-a"
+path = "exercises/move_semantics/move_semantics2-a.rs"
+mode = "compile"
+hint = "I added this one."
+
+[[exercises]]
 name = "move_semantics3"
 path = "exercises/move_semantics/move_semantics3.rs"
 mode = "compile"
