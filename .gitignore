@@ -10,3 +10,6 @@ rust-project.json
 .vscode
 *.iml
 *.o
+
+# Random binaries
+move_semantics2-a
