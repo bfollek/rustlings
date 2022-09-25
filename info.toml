@@ -312,6 +312,12 @@ mode = "compile"
 hint = "I added this one."
 
 [[exercises]]
+name = "move_semantics2-b"
+path = "exercises/move_semantics/move_semantics2-b.rs"
+mode = "compile"
+hint = "I added this one."
+
+[[exercises]]
 name = "move_semantics3"
 path = "exercises/move_semantics/move_semantics3.rs"
 mode = "compile"
