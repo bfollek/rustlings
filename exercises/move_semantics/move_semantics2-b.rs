@@ -11,8 +11,6 @@
    first `println!`"""
 */
 
-// I AM NOT DONE
-
 fn main() {
     let mut vec0 = Vec::new();
     fill_vec(&mut vec0);
