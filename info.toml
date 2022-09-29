@@ -535,13 +535,6 @@ Hint 2: If there is already an entry for a given key, the value returned by `ent
 Learn more at https://doc.rust-lang.org/book/ch08-03-hash-maps.html#updating-a-value-based-on-the-old-value
 """
 
-[[exercises]]
-name = "hashmaps3_no_clone"
-path = "exercises/hashmaps/hashmaps3_no_clone.rs"
-mode = "test"
-hint = """
-"""
-
 # QUIZ 2
 
 [[exercises]]
