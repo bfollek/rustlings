@@ -20,7 +20,11 @@
 
 Move scores build into function.
 
+Can and_modify take 2 clauses? A block?
+
 Handle team name without clone()?
+- Reference
+- clone() just on or_insert
 
 */
 
@@ -75,6 +79,23 @@ fn build_scores_table(results: String) -> HashMap<String, Team> {
     }
 
     scores
+}
+
+fn update_team_scores(
+    mut scores: HashMap<String, Team>,
+    name: String,
+    goals_scored: u8,
+    goals_conceded: u8,
+) {
+    scores
+        .entry(name.clone())
+        .and_modify(|team| team.goals_scored += goals_scored)
+        .and_modify(|team| team.goals_conceded += goals_conceded)
+        .or_insert(Team {
+            name: name,
+            goals_scored: goals_scored,
+            goals_conceded: goals_conceded,
+        });
 }
 
 #[cfg(test)]
