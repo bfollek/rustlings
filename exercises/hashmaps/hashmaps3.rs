@@ -75,7 +75,6 @@ fn update_team_scores(
             team.goals_scored += goals_scored;
             team.goals_conceded += goals_conceded
         })
-        //.and_modify(|team| team.goals_conceded += goals_conceded)
         .or_insert(Team {
             name,
             goals_scored,
