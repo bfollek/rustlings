@@ -18,8 +18,6 @@
 
 /* TODO
 
-Move scores build into function.
-
 Can and_modify take 2 clauses? A block?
 
 Handle team name without clone()?
@@ -58,31 +56,15 @@ fn build_scores_table(results: String) -> HashMap<String, Team> {
         let team_2_name = v[1].to_string();
         let team_2_score: u8 = v[3].parse().unwrap();
 
-        scores
-            .entry(team_1_name.clone())
-            .and_modify(|team| team.goals_scored += team_1_score)
-            .and_modify(|team| team.goals_conceded += team_2_score)
-            .or_insert(Team {
-                name: team_1_name,
-                goals_scored: team_1_score,
-                goals_conceded: team_2_score,
-            });
-        scores
-            .entry(team_2_name.clone())
-            .and_modify(|team| team.goals_scored += team_2_score)
-            .and_modify(|team| team.goals_conceded += team_1_score)
-            .or_insert(Team {
-                name: team_2_name,
-                goals_scored: team_2_score,
-                goals_conceded: team_1_score,
-            });
+        update_team_scores(&mut scores, team_1_name, team_1_score, team_2_score);
+        update_team_scores(&mut scores, team_2_name, team_2_score, team_1_score);
     }
 
     scores
 }
 
 fn update_team_scores(
-    mut scores: HashMap<String, Team>,
+    scores: &mut HashMap<String, Team>,
     name: String,
     goals_scored: u8,
     goals_conceded: u8,
@@ -92,9 +74,9 @@ fn update_team_scores(
         .and_modify(|team| team.goals_scored += goals_scored)
         .and_modify(|team| team.goals_conceded += goals_conceded)
         .or_insert(Team {
-            name: name,
-            goals_scored: goals_scored,
-            goals_conceded: goals_conceded,
+            name,
+            goals_scored,
+            goals_conceded,
         });
 }
 
