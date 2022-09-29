@@ -18,8 +18,6 @@
 
 /* TODO
 
-Can and_modify take 2 clauses? A block?
-
 Handle team name without clone()?
 - Reference
 - clone() just on or_insert
