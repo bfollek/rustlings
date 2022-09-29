@@ -14,11 +14,12 @@
 
 // Execute `rustlings hint hashmaps3` or use the `hint` watch subcommand for a hint.
 
+// I AM NOT DONE
+
 /* TODO
 
 Handle team name without clone()?
-- Reference
-- clone() just on or_insert
+- I tried to use an &str for Team.name, but I ran into lifetime issues. So on hold for now.
 
 */
 
@@ -29,16 +30,6 @@ struct Team {
     name: String,
     goals_scored: u8,
     goals_conceded: u8,
-}
-
-impl Team {
-    fn new(name: String) -> Team {
-        Team {
-            name: name,
-            goals_scored: 0,
-            goals_conceded: 0,
-        }
-    }
 }
 
 fn build_scores_table(results: String) -> HashMap<String, Team> {
