@@ -164,4 +164,9 @@ Thanks goes to the wonderful people listed in [AUTHORS.md](./AUTHORS.md) 🎉
 
 ## Extra
 
+Put this comment in to work on an exercise:
+```rs
+// I AM NOT DONE
+```
+
 The exercises are defined in **info.toml**.
