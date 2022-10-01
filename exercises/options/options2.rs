@@ -28,8 +28,11 @@ mod tests {
 
         // TODO: make this a while let statement - remember that vector.pop also adds another layer of Option<T>
         // You can stack `Option<T>`'s into while let and if let
-        while let Some(opt_i) = optional_integers.pop() {
-            if let Some(integer) = opt_i {
+
+        // Vec.pop() returns an Option type of Some(next_element) or None.
+        while let Some(nxt) = optional_integers.pop() {
+            // The Option type is Some(int8) or None.
+            if let Some(integer) = nxt {
                 assert_eq!(integer, range);
                 range -= 1;
             }
