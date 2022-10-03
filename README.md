@@ -164,6 +164,8 @@ Thanks goes to the wonderful people listed in [AUTHORS.md](./AUTHORS.md) 🎉
 
 ## Extra
 
+Every now and then, stop/restart `$ rustlings watch` to make sure everything still works right.
+
 Put this comment in to work on an exercise:
 ```rs
 // I AM NOT DONE
