@@ -40,7 +40,7 @@ pub fn divide(a: i32, b: i32) -> Result<i32, DivisionError> {
 // Desired output: Ok([1, 11, 1426, 3])
 fn result_with_list() -> Result<Vec<i32>, DivisionError> {
     let numbers = vec![27, 297, 38502, 81];
-    let mut out: Vec<i32> = Vec::new();
+    let mut out = Vec::with_capacity(numbers.len());
     let division_results = numbers.into_iter().map(|n| divide(n, 27));
     for dr in division_results {
         match dr {
