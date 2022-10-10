@@ -9,8 +9,12 @@
 // I AM NOT DONE
 
 /*
-Todo - How to use question mark operator to simplify error hondling?
-Maybe use a Result method?
+Todo
+
+How to simplify error handling in `result_with_list`?
+- Question mark operator?
+- A Result method?
+
 */
 
 #[derive(Debug, PartialEq, Eq)]
