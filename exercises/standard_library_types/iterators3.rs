@@ -39,9 +39,11 @@ pub fn divide(a: i32, b: i32) -> Result<i32, DivisionError> {
 fn result_with_list() -> Result<Vec<i32>, DivisionError> {
     let numbers = vec![27, 297, 38502, 81];
     Ok(numbers
-        .into_iter()
-        .map(|n| divide(n, 27))
+        .iter()
+        .map(|n| divide(*n, 27))
         .collect::<Result<Vec<_>, _>>()?)
+    // Or use `into_iter()` and you don't have to deref `n` in the call to `divide`.
+    // This is because `into_iter()` takes ownership, I believe.
 }
 
 // Complete the function and return a value of the correct type so the test passes.
