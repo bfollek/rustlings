@@ -6,17 +6,6 @@
 //    list_of_results functions.
 // Execute `rustlings hint iterators3` or use the `hint` watch subcommand for a hint.
 
-// I AM NOT DONE
-
-/*
-Todo
-
-How to simplify error handling in `result_with_list`?
-- Question mark operator?
-- A Result method?
-
-*/
-
 #[derive(Debug, PartialEq, Eq)]
 pub enum DivisionError {
     NotDivisible(NotDivisibleError),
