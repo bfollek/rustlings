@@ -49,16 +49,10 @@ pub fn divide(a: i32, b: i32) -> Result<i32, DivisionError> {
 // Desired output: Ok([1, 11, 1426, 3])
 fn result_with_list() -> Result<Vec<i32>, DivisionError> {
     let numbers = vec![27, 297, 38502, 81];
-    //let mut out = Vec::with_capacity(numbers.len());
-    let division_results = numbers.into_iter().map(|n| divide(n, 27));
-    Ok(division_results.collect::<Result<Vec<_>, _>>())?
-    // for dr in division_results {
-    //     match dr {
-    //         Ok(i) => out.push(i),
-    //         Err(e) => return Err(e),
-    //     }
-    // }
-    // Ok(out)
+    Ok(numbers
+        .into_iter()
+        .map(|n| divide(n, 27))
+        .collect::<Result<Vec<_>, _>>()?)
 }
 
 // Complete the function and return a value of the correct type so the test passes.
