@@ -3,6 +3,8 @@
 // Building on the last exercise, we want all of the threads to complete their work but this time
 // the spawned threads need to be in charge of updating a shared value: JobStatus.jobs_completed
 
+// I AM NOT DONE
+
 use std::sync::{Arc, Mutex};
 use std::thread;
 use std::time::Duration;
@@ -27,24 +29,18 @@ fn main() {
     // TODO: Print the value of the JobStatus.jobs_completed. Did you notice anything
     // interesting in the output? Do you have to 'join' on all the handles?
 
-    // The output is `jobs completed 10` for all the threads, as if they've all finished
-    // by the time the main thread arrives here. So I don't have to join on all the handles.
-    // I don't have to join on _any_handle.
-
-    // Is the shared Arc mutex somehow responsible for this? It must be,
-    // but why? Because the Arc clones exist until all the threads are finished, and the
-    // Arc ref count is therefore > 1? I dunno.
-
-    // This all makes sense if the main thread is simply waiting for control of the mutex.
-    // That seems to be the case. But what guarantees that all the other threads had time
-    // to make their lock requests?
+    /*
+     * It looks like I can join on just 1 thread, and everything still works right.
+     * I don't understand why joining one seems to be the same as joining all 10.
+     * Either way, main doesn't get the mutex till all the threads have run.
+     */
 
     /*
      * Use `remove` to get ownership of the handle.
      * https://stackoverflow.com/questions/68966949/unable-to-join-threads-from-joinhandles-stored-in-a-vector-rust
      */
-    //let h = handles.remove(0);
-    //h.join().unwrap();
+    let h = handles.remove(0);
+    h.join().unwrap();
     let status = status.lock().unwrap();
     println!("jobs completed {}", status.jobs_completed);
 }
