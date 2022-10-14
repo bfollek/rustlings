@@ -50,22 +50,25 @@ fn main() {
      * I don't understand why joining one seems to be the same as joining all 10.
      * Either way, main doesn't get the mutex till all the threads have run.
      *
-     * Actually, that falls apart when I add prints to the threads. Maybe that slows
-     * them enough for main to sneak in. It's definitely happening sometimes.
+     * If I don't join on all threads, main sneaks in. It's obvious when
+     * I add prints to the threads. Maybe that slows
+     * them enough for main to sneak in.
      *
      * So the best answer seems to be: join on all the handles, but don't the threads.
      */
 
-    for handle in handles {
-        handle.join().unwrap();
-    }
-
     /*
+     * How to join on just 1 thread. This isn't safe, though. I need to join on them all.
+     *
      * Use `remove` to get ownership of the handle.
      * https://stackoverflow.com/questions/68966949/unable-to-join-threads-from-joinhandles-stored-in-a-vector-rust
      */
     // let h = handles.remove(0);
     // h.join().unwrap();
+
+    for handle in handles {
+        handle.join().unwrap();
+    }
 
     println!("main thread is waiting to lock.");
     let status = status.lock().unwrap();
