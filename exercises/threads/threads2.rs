@@ -26,8 +26,17 @@ fn main() {
         handles.push(handle);
     }
 
-    // TODO: Print the value of the JobStatus.jobs_completed. Did you notice anything
-    // interesting in the output? Do you have to 'join' on all the handles?
+    /*
+    With this code, each thread prints `jobs completed 10`.
+
+    for handle in handles {
+        handle.join().unwrap();
+        // TODO: Print the value of the JobStatus.jobs_completed. Did you notice anything
+        // interesting in the output? Do you have to 'join' on all the handles?
+        let status = status.lock().unwrap();
+        println!("jobs completed {}", status.jobs_completed);
+    }
+    */
 
     /*
      * It looks like I can join on just 1 thread, and everything still works right.
