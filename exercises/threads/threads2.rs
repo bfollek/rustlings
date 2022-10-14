@@ -27,11 +27,17 @@ fn main() {
     // TODO: Print the value of the JobStatus.jobs_completed. Did you notice anything
     // interesting in the output? Do you have to 'join' on all the handles?
 
-    // The output is `jobs completed 10` for all the threads, as if they all arrive here
-    // at the same time. So I don't have to join on all the handles. I don't have to join
-    // on _any_handle. Is the shared Arc mutex somehow responsible for this? It must be,
+    // The output is `jobs completed 10` for all the threads, as if they've all finished
+    // by the time the main thread arrives here. So I don't have to join on all the handles.
+    // I don't have to join on _any_handle.
+
+    // Is the shared Arc mutex somehow responsible for this? It must be,
     // but why? Because the Arc clones exist until all the threads are finished, and the
-    // Arc ref count is therefor > 1? I dunno.
+    // Arc ref count is therefore > 1? I dunno.
+
+    // This all makes sense if the main thread is simply waiting for control of the mutex.
+    // That seems to be the case. But what guarantees that all the other threads had time
+    // to make their lock requests?
 
     /*
      * Use `remove` to get ownership of the handle.
