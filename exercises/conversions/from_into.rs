@@ -44,25 +44,28 @@ impl From<&str> for Person {
         if s.len() == 0 {
             return Person::default();
         }
+
+        let mut name;
+        let mut age;
         // 2. Split the given string on the commas present in it
-        let split_em = s.split_once(',');
-        if split_em.is_none() {
-            return Person::default();
-        }
         // 3. Extract the first element from the split operation and use it as the name
-        let (raw_name, raw_age) = split_em.unwrap();
-        // 4. If the name is empty, then return the default of Person
-        let name = String::from(raw_name.trim());
-        if name.len() == 0 {
+        if let Some((n, a)) = s.split_once(',') {
+            name = String::from(n.trim());
+            // 4. If the name is empty, then return the default of Person
+            if name.len() == 0 {
+                return Person::default();
+            }
+            // 5. Extract the other element from the split operation and parse it into a `usize` as the age
+            // If while parsing the age, something goes wrong, then return the default of Person
+            if let Ok(a) = a.parse::<usize>() {
+                age = a;
+            } else {
+                return Person::default();
+            }
+        } else {
             return Person::default();
         }
-        // 5. Extract the other element from the split operation and parse it into a `usize` as the age
-        // If while parsing the age, something goes wrong, then return the default of Person
-        let age_opt = raw_age.parse::<usize>();
-        if age_opt.is_err() {
-            return Person::default();
-        }
-        let age = age_opt.unwrap();
+
         // Otherwise, then return an instantiated Person object with the results
         Person { name, age }
     }
