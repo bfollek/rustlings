@@ -56,10 +56,6 @@ impl From<&str> for Person {
         if name.len() == 0 {
             return Person::default();
         }
-        println!(
-            "...............got to 5. name: {}, raw_age: {}",
-            name, raw_age
-        );
         // 5. Extract the other element from the split operation and parse it into a `usize` as the age
         // If while parsing the age, something goes wrong, then return the default of Person
         let age_opt = raw_age.parse::<usize>();
