@@ -44,7 +44,7 @@ impl Default for Person {
 impl From<&str> for Person {
     fn from(s: &str) -> Person {
         const EXPECTED_NUM_TOKENS: usize = 2;
-        // Split on comma, trim the tokens, filter out any empty ones.
+        // Split on comma, and trim the tokens.
         // If we don't end up with two tokens, bail out.
         // We can't filter on `is_empty` yet because of the trailing comma test.
         let mut tokens: Vec<&str> = s.split(',').map(|elem| elem.trim()).collect();
@@ -61,7 +61,7 @@ impl From<&str> for Person {
         match tokens[1].parse::<usize>() {
             Ok(age) => Person {
                 name: String::from(name),
-                age: age,
+                age,
             },
             Err(_) => Person::default(),
         }
