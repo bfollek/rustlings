@@ -43,21 +43,18 @@ impl Default for Person {
 
 impl From<&str> for Person {
     fn from(s: &str) -> Person {
-        // Arguably, I should validate with a regex from the start.
-        // We need this to pass `test_trailing_comma`.
-        // Arguably, a trailing comma should be aceepted.
-        if s.matches(',').count() != 1 {
-            return Person::default();
-        }
+        const EXPECTED_NUM_TOKENS: usize = 2;
         // Split on comma, trim the tokens, filter out any empty ones.
         // If we don't end up with two tokens, bail out.
-        let tokens: Vec<&str> = s
-            .split(',')
-            .map(|elem| elem.trim())
-            .filter(|elem| !elem.is_empty())
-            .collect();
-        if tokens.len() != 2 {
+        // We can't filter on `is_empty` yet because of the trailing comma test.
+        let mut tokens: Vec<&str> = s.split(',').map(|elem| elem.trim()).collect();
+        if tokens.len() != EXPECTED_NUM_TOKENS {
             return Person::default();
+        }
+        for t in tokens.iter() {
+            if t.is_empty() {
+                return Person::default();
+            }
         }
 
         let name = tokens[0];
