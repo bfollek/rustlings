@@ -37,8 +37,18 @@ impl Default for Person {
 
 // I AM NOT DONE
 
+//TODO:
+// and_then()
+// regex
+
 impl From<&str> for Person {
     fn from(s: &str) -> Person {
+        // Arguably, I should validate with a regex from the start.
+        // We need this to pass `test_trailing_comma`.
+        // Arguably, a trailing comma should be aceepted.
+        if s.matches(',').count() != 1 {
+            return Person::default();
+        }
         // Split on comma, trim the tokens, filter out any empty ones.
         // If we don't end up with two tokens, bail out.
         let tokens: Vec<&str> = s
@@ -51,18 +61,12 @@ impl From<&str> for Person {
         }
 
         let name = tokens[0];
-        println!("name: {}", name);
-        let age: usize;
-        if let Ok(a) = tokens[1].parse::<usize>() {
-            age = a;
-            println!("age: {}", age);
-        } else {
-            return Person::default();
-        }
-
-        Person {
-            name: String::from(name),
-            age: age,
+        match tokens[1].parse::<usize>() {
+            Ok(age) => Person {
+                name: String::from(name),
+                age: age,
+            },
+            Err(_) => Person::default(),
         }
     }
 }
