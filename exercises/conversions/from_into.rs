@@ -39,35 +39,31 @@ impl Default for Person {
 
 impl From<&str> for Person {
     fn from(s: &str) -> Person {
-        let s = s.trim();
-        // 1. If the length of the provided string is 0, then return the default of Person
-        if s.len() == 0 {
+        // Split on comma, trim the tokens, filter out any empty ones.
+        // If we don't end up with two tokens, bail out.
+        let tokens: Vec<&str> = s
+            .split(',')
+            .map(|elem| elem.trim())
+            .filter(|elem| !elem.is_empty())
+            .collect();
+        if tokens.len() != 2 {
             return Person::default();
         }
 
-        let mut name;
-        let mut age;
-        // 2. Split the given string on the commas present in it
-        // 3. Extract the first element from the split operation and use it as the name
-        if let Some((n, a)) = s.split_once(',') {
-            name = String::from(n.trim());
-            // 4. If the name is empty, then return the default of Person
-            if name.len() == 0 {
-                return Person::default();
-            }
-            // 5. Extract the other element from the split operation and parse it into a `usize` as the age
-            // If while parsing the age, something goes wrong, then return the default of Person
-            if let Ok(a) = a.parse::<usize>() {
-                age = a;
-            } else {
-                return Person::default();
-            }
+        let name = tokens[0];
+        println!("name: {}", name);
+        let age: usize;
+        if let Ok(a) = tokens[1].parse::<usize>() {
+            age = a;
+            println!("age: {}", age);
         } else {
             return Person::default();
         }
 
-        // Otherwise, then return an instantiated Person object with the results
-        Person { name, age }
+        Person {
+            name: String::from(name),
+            age: age,
+        }
     }
 }
 
