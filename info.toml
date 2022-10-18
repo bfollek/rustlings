@@ -1132,6 +1132,13 @@ hint = """
 Follow the steps provided right before the `From` implementation"""
 
 [[exercises]]
+name = "from_into_regex"
+path = "exercises/conversions/from_into_regex.rs"
+mode = "test"
+hint = """
+Follow the steps provided right before the `From` implementation"""
+
+[[exercises]]
 name = "from_str"
 path = "exercises/conversions/from_str.rs"
 mode = "test"
