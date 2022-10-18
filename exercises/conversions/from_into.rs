@@ -35,12 +35,6 @@ impl Default for Person {
 // If while parsing the age, something goes wrong, then return the default of Person
 // Otherwise, then return an instantiated Person object with the results
 
-// I AM NOT DONE
-
-//TODO:
-// and_then()
-// regex
-
 impl From<&str> for Person {
     fn from(s: &str) -> Person {
         const EXPECTED_NUM_TOKENS: usize = 2;
