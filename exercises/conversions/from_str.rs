@@ -46,7 +46,7 @@ enum ParsePersonError {
 /*
 TODO
 
-Can I trim the vector with map, in one pass?
+Try vector slice to assign: &a[..]
 
 Separate out parse fields.
 Have it return Result(tuple, Err)
@@ -65,11 +65,10 @@ impl FromStr for Person {
         if vec.len() != 2 {
             return Err(ParsePersonError::BadLen);
         }
-        let name = vec[0]; // 4.
+        let (name, raw_age) = (vec[0], vec[1]); // 4., .5
         if name.is_empty() {
             return Err(ParsePersonError::NoName);
         }
-        let raw_age = vec[1]; // 5.
         match raw_age.parse::<usize>() {
             Ok(age) => Ok(Person {
                 name: String::from(name),
