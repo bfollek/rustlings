@@ -46,10 +46,6 @@ enum ParsePersonError {
 /*
 TODO
 
-Separate out parse fields.
-Have it return Result(tuple, Err)
-Have from_str use ? to bounce the error, else Ok(Person {...
-
 */
 
 fn parse_fields(s: &str) -> Result<(&str, usize), ParsePersonError> {
@@ -73,6 +69,7 @@ fn parse_fields(s: &str) -> Result<(&str, usize), ParsePersonError> {
 
 impl FromStr for Person {
     type Err = ParsePersonError;
+
     fn from_str(s: &str) -> Result<Person, Self::Err> {
         let (name, age) = parse_fields(s)?;
         Ok(Person {
