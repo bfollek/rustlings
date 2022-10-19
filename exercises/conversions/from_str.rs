@@ -61,7 +61,7 @@ impl FromStr for Person {
         if s.len() == 0 {
             return Err(ParsePersonError::Empty); // 1.
         }
-        let mut vec: Vec<&str> = s.split(',').collect(); // 2., 3.
+        let mut vec: Vec<&str> = s.split(',').map(|s| s.trim()).collect(); // 2., 3.
         if vec.len() != 2 {
             return Err(ParsePersonError::BadLen);
         }
