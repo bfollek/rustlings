@@ -52,6 +52,25 @@ Have from_str use ? to bounce the error, else Ok(Person {...
 
 */
 
+fn parse_fields(s: &str) -> Result<(&str, usize), ParsePersonError> {
+    let s = s.trim();
+    if s.len() == 0 {
+        return Err(ParsePersonError::Empty); // 1.
+    }
+    let vec: Vec<&str> = s.split(',').map(|s| s.trim()).collect(); // 2., 3.
+    if vec.len() != 2 {
+        return Err(ParsePersonError::BadLen);
+    }
+    let (name, raw_age) = (vec[0], vec[1]); // 4., .5
+    if name.is_empty() {
+        return Err(ParsePersonError::NoName);
+    }
+    match raw_age.parse::<usize>() {
+        Ok(age) => Ok((name, age)),
+        Err(e) => Err(ParsePersonError::ParseInt(e)), // 6.
+    }
+}
+
 impl FromStr for Person {
     type Err = ParsePersonError;
     fn from_str(s: &str) -> Result<Person, Self::Err> {
