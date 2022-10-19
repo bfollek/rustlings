@@ -65,11 +65,11 @@ impl FromStr for Person {
         if vec.len() != 2 {
             return Err(ParsePersonError::BadLen);
         }
-        let name = vec.swap_remove(0).trim(); // 4.
+        let name = vec[0].trim(); // 4.
         if name.is_empty() {
             return Err(ParsePersonError::NoName);
         }
-        let raw_age = vec.swap_remove(0).trim(); // 5.
+        let raw_age = vec[1].trim(); // 5.
         match raw_age.parse::<usize>() {
             Ok(age) => Ok(Person {
                 name: String::from(name),
