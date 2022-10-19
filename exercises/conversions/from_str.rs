@@ -48,9 +48,9 @@ TODO
 
 Can I trim the vector with map, in one pass?
 
-Try to understand this:
-// As an aside: `Box<dyn Error>` implements `From<&'_ str>`. This means that if you want to return a
-// string error message, you can do so via just using return `Err("my error message".into())`.
+Separate out parse fields.
+Have it return Result(tuple, Err)
+Have from_str use ? to bounce the error, else Ok(Person {...
 
 */
 
@@ -58,31 +58,24 @@ impl FromStr for Person {
     type Err = ParsePersonError;
     fn from_str(s: &str) -> Result<Person, Self::Err> {
         let s = s.trim();
-        // 1. If the length of the provided string is 0, an error should be returned
         if s.len() == 0 {
-            return Err(ParsePersonError::Empty);
+            return Err(ParsePersonError::Empty); // 1.
         }
-        // 2. Split the given string on the commas present in it
-        // 3. Only 2 elements should be returned from the split, otherwise return an error
-        let mut vec: Vec<&str> = s.split(',').collect();
+        let mut vec: Vec<&str> = s.split(',').collect(); // 2., 3.
         if vec.len() != 2 {
             return Err(ParsePersonError::BadLen);
         }
-        // 4. Extract the first element from the split operation and use it as the name
-        let name = vec.remove(0).trim();
+        let name = vec.remove(0).trim(); // 4.
         if name.is_empty() {
             return Err(ParsePersonError::NoName);
         }
-        // 5. Extract the other element from the split operation and parse it into a `usize`
-        // as the age with something like `"4".parse::<usize>()`
-        let raw_age = vec.remove(0).trim();
+        let raw_age = vec.remove(0).trim(); // 5.
         match raw_age.parse::<usize>() {
             Ok(age) => Ok(Person {
                 name: String::from(name),
                 age,
             }),
-            // 6. If while extracting the name and the age something goes wrong, an error should be returned
-            Err(e) => Err(ParsePersonError::ParseInt(e)),
+            Err(e) => Err(ParsePersonError::ParseInt(e)), // 6.
         }
     }
 }
