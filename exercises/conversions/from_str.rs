@@ -46,8 +46,6 @@ enum ParsePersonError {
 /*
 TODO
 
-Try vector slice to assign: &a[..]
-
 Separate out parse fields.
 Have it return Result(tuple, Err)
 Have from_str use ? to bounce the error, else Ok(Person {...
@@ -61,7 +59,7 @@ impl FromStr for Person {
         if s.len() == 0 {
             return Err(ParsePersonError::Empty); // 1.
         }
-        let mut vec: Vec<&str> = s.split(',').map(|s| s.trim()).collect(); // 2., 3.
+        let vec: Vec<&str> = s.split(',').map(|s| s.trim()).collect(); // 2., 3.
         if vec.len() != 2 {
             return Err(ParsePersonError::BadLen);
         }
