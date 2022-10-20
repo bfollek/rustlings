@@ -37,8 +37,8 @@ enum ParsePersonError {
 
 // Good example here: https://doc.rust-lang.org/std/convert/trait.From.html
 impl From<ParseIntError> for ParsePersonError {
-    fn from(error: ParseIntError) -> Self {
-        ParsePersonError::ParseInt(error)
+    fn from(pie: ParseIntError) -> Self {
+        ParsePersonError::ParseInt(pie)
     }
 }
 
@@ -56,6 +56,10 @@ impl From<ParseIntError> for ParsePersonError {
 // string error message, you can do so via just using return `Err("my error message".into())`.
 
 fn parse_fields(s: &str) -> Result<(&str, usize), ParsePersonError> {
+    // Indexes
+    const NAME: usize = 0;
+    const AGE: usize = 1;
+
     let s = s.trim();
     if s.len() == 0 {
         return Err(ParsePersonError::Empty); // 1.
@@ -64,11 +68,11 @@ fn parse_fields(s: &str) -> Result<(&str, usize), ParsePersonError> {
     if vec.len() != 2 {
         return Err(ParsePersonError::BadLen);
     }
-    let (name, raw_age) = (vec[0], vec[1]); // 4., .5
+    let name = vec[NAME]; // 4.
     if name.is_empty() {
         return Err(ParsePersonError::NoName);
     }
-    let age = raw_age.parse::<usize>()?;
+    let age = vec[AGE].parse::<usize>()?; // 5.
     Ok((name, age))
 }
 
