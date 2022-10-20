@@ -46,6 +46,10 @@ enum ParsePersonError {
 /*
 TODO
 
+It would be nice to figure out how to use the ? operator in parse_fields,
+on the raw_age::parse::usize() code. It seems like I'd have to write an impl/from
+to convert ParseIntError to ParsePersonError. I tried, wrapping the ParseIntError
+the same way I do in the match, but it wouldn't compile.
 */
 
 fn parse_fields(s: &str) -> Result<(&str, usize), ParsePersonError> {
