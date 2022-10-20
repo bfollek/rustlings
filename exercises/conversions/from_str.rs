@@ -6,6 +6,13 @@
 // You can read more about it at https://doc.rust-lang.org/std/str/trait.FromStr.html
 // Execute `rustlings hint from_str` or use the `hint` watch subcommand for a hint.
 
+// I AM NOT DONE
+
+/*
+TODO
+
+*/
+
 use std::num::ParseIntError;
 use std::str::FromStr;
 
@@ -28,6 +35,13 @@ enum ParsePersonError {
     ParseInt(ParseIntError),
 }
 
+// Good example here: https://doc.rust-lang.org/std/convert/trait.From.html
+impl From<ParseIntError> for ParsePersonError {
+    fn from(error: ParseIntError) -> Self {
+        ParsePersonError::ParseInt(error)
+    }
+}
+
 // Steps:
 // 1. If the length of the provided string is 0, an error should be returned
 // 2. Split the given string on the commas present in it
@@ -40,15 +54,6 @@ enum ParsePersonError {
 //
 // As an aside: `Box<dyn Error>` implements `From<&'_ str>`. This means that if you want to return a
 // string error message, you can do so via just using return `Err("my error message".into())`.
-
-/*
-TODO
-
-It would be nice to figure out how to use the ? operator in parse_fields,
-on the raw_age::parse::usize() code. It seems like I'd have to write an impl/from
-to convert ParseIntError to ParsePersonError. I tried, wrapping the ParseIntError
-the same way I do in the match, but it wouldn't compile.
-*/
 
 fn parse_fields(s: &str) -> Result<(&str, usize), ParsePersonError> {
     let s = s.trim();
@@ -63,10 +68,8 @@ fn parse_fields(s: &str) -> Result<(&str, usize), ParsePersonError> {
     if name.is_empty() {
         return Err(ParsePersonError::NoName);
     }
-    match raw_age.parse::<usize>() {
-        Ok(age) => Ok((name, age)),
-        Err(e) => Err(ParsePersonError::ParseInt(e)), // 6.
-    }
+    let age = raw_age.parse::<usize>()?;
+    Ok((name, age))
 }
 
 impl FromStr for Person {
