@@ -6,8 +6,6 @@
 // You can read more about it at https://doc.rust-lang.org/std/str/trait.FromStr.html
 // Execute `rustlings hint from_str` or use the `hint` watch subcommand for a hint.
 
-// I AM NOT DONE
-
 /*
 TODO
 
