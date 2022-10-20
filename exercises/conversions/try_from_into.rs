@@ -34,11 +34,16 @@ enum IntoColorError {
 // but the slice implementation needs to check the slice length!
 // Also note that correct RGB color values must be integers in the 0..=255 range.
 
+fn check_colors(slice: &[i16]) -> Result<Vec<u8>, IntoColorError> {
+    let v: Vec<u8> = vec![0, 0, 0];
+    Ok(v)
+}
+
 // Tuple implementation
 impl TryFrom<(i16, i16, i16)> for Color {
     type Error = IntoColorError;
     fn try_from(tuple: (i16, i16, i16)) -> Result<Self, Self::Error> {
-        //let (r::<u8>, g::<u8>, b::<u8>) = tuple;
+        let (r, g, b) = tuple;
         Ok(Color {
             red: 0,
             green: 0,
