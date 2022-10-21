@@ -35,15 +35,17 @@ enum IntoColorError {
 // Also note that correct RGB color values must be integers in the 0..=255 range.
 
 // Tuple implementation
+// Tuple -> array -> slice
 impl TryFrom<(i16, i16, i16)> for Color {
     type Error = IntoColorError;
     fn try_from(tuple: (i16, i16, i16)) -> Result<Self, Self::Error> {
-        let v = vec![tuple.0, tuple.1, tuple.2];
-        Self::try_from(&v[..])
+        let arr = [tuple.0, tuple.1, tuple.2];
+        Self::try_from(&arr[..])
     }
 }
 
 // Array implementation
+// Array -> slice
 impl TryFrom<[i16; 3]> for Color {
     type Error = IntoColorError;
     fn try_from(arr: [i16; 3]) -> Result<Self, Self::Error> {
